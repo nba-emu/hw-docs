@@ -1,0 +1,6 @@
+[book]
+authors = ["fleroviux"]
+language = "en"
+multilingual = false
+src = "src"
+title = "NBA hardware documentation"
