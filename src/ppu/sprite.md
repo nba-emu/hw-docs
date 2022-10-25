@@ -26,11 +26,11 @@ That is enough to prefetch OAM attributes #0 and #1 for the next OAM entry and e
 The VRAM fetch stage fetches tile data for every sprite pixel in the rendered scanline.
 
 For regular sprites `width` 16-bit VRAM accesses are performed (one access every two cycles).
-With each access two tile pixels are extracted (even for 4BPP tile which stores four pixels in two bytes).
+With each access two pixels are rendered (even for 4BPP tile data).
 
 For affine sprites this stage does not perform a VRAM access during the first two render cycles.
 It then performs `2 * width` VRAM accesses (one access every two cycles).
-Each of these accesses renders a single pixel.
+With each access a single pixel is rendered.
 Notice that using the 'double area' feature doubles the number of VRAM accesses.
 
 ## Examples
