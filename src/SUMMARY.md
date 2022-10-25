@@ -1,3 +1,8 @@
 # Summary
 
-- [Chapter 1](./chapter_1.md)
+- [Foreword](./foreword.md)
+- [Timers](./timers.md)
+- [PPU](./ppu/ppu.md)
+  - [Background](./ppu/background.md)
+  - [Sprite](./ppu/sprite.md)
+  - [Composite](./ppu/composite.md)
