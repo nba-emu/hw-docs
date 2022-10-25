@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Background - NBA hardware documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../foreword.html"><strong aria-hidden="true">1.</strong> Foreword</a></li><li class="chapter-item expanded "><a href="../timers.html"><strong aria-hidden="true">2.</strong> Timers</a></li><li class="chapter-item expanded "><a href="../ppu/ppu.html"><strong aria-hidden="true">3.</strong> PPU</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ppu/background.html" class="active"><strong aria-hidden="true">3.1.</strong> Background</a></li><li class="chapter-item expanded "><a href="../ppu/sprite.html"><strong aria-hidden="true">3.2.</strong> Sprite</a></li><li class="chapter-item expanded "><a href="../ppu/composite.html"><strong aria-hidden="true">3.3.</strong> Composite</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">NBA hardware documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="background-rendering"><a class="header" href="#background-rendering">Background rendering</a></h1>
+<p>The PPU renders background pixels during all visible scanlines (0 to 159). In each scanline it renders all pixels for the current scanline, meaning that unlike sprite rendering all background rendering happens in the same scanline.</p>
+<p>For every background (BG0 - BG3) there is a wait/idle period for a number of clock cycles before the PPU begins rendering that background according to the VRAM access patterns laid out below. Usually the length of the wait period is 33 clock cycles, however it may be shorter for text-mode backgrounds which use horizontal scrolling, as described in more detail in the <a href="#mode-0-bg0-3-text-mode">Mode 0</a> section.</p>
+<p>Once the wait period for a given background has passed, the PPU renders pixels until it enters the horizontal blanking period (h-blank) (cycle #1007 appears to be the last cycle that may fetch data).
+If all visible 240 pixels have been rendered, before the PPU reaches the h-blank period, it does not stop rendering pixels early. It renders more pixels (which are discarded) until the h-blank  period.</p>
+<p>The hardware fetches <strong>on average</strong> one background pixel (for every enabled background) every four cycles. For affine tilemap and bitmap modes this is the true rate at which pixels are fetched, however for text-mode backgrounds the access pattern is slightly more complicated.</p>
+<h2 id="legend"><a class="header" href="#legend">Legend</a></h2>
+<pre><code>- = no fetch
+M = fetch map entry (8-bit for affine maps or 16-bit for text-mode maps)
+T = fetch tile data
+B = fetch bitmap (8-bit palette index or 16-bit color)
+</code></pre>
+<h2 id="mode-0-bg0---bg3-text-mode"><a class="header" href="#mode-0-bg0---bg3-text-mode">Mode 0 (BG0 - BG3 text mode)</a></h2>
+<p>Text-mode backgrounds are rendered tile-by-tile. Within 32 cycles a single tilemap-entry is rendered for each enabled background, starting with the left-most visible tilemap-entry. Normally 30<sup class="footnote-reference"><a href="#1">1</a></sup> tilemap-entries are rendered per scanline. However when sub-tile<sup class="footnote-reference"><a href="#2">2</a></sup> horizontal scrolling is used then an additional tilemap-entry needs to be rendered. Notice that while in this case the first and last tile are partially off-screen, hardware still fetches the full data for all eight pixels. The off-screen pixels simply are discarded.</p>
+<p>Normally rendering for text-mode backgrounds starts at 33 cycles into the scanline. When a background has sub-tile scrolling<sup class="footnote-reference"><a href="#2">2</a></sup>, then its start time is shifted closer to the start of the scanline by four cycles per sub-tile scrolled pixel. That is to say, the start time can be calculated from the <strong>BG</strong>[x]<strong>HOFS</strong> register: <code>33 - 4 * (BG[x]HOFS mod 8)</code>. This is presumably done to ensure that the <em>actually</em> visible pixels are always available in time to be consumed by the composite step.</p>
+<p>To render a tilemap-entry the relevant 16-bit descriptor is first fetched from the tilemap. The hardware then performs another two (4BPP) or four (8BPP) 16-bit VRAM fetches to read a full eight pixel line from the tile data.</p>
+<h3 id="4bpp-access-patterns"><a class="header" href="#4bpp-access-patterns">4BPP access patterns</a></h3>
+<pre><code>BG0: M--- T--- ---- ---- ---- T--- ---- ----
+BG1: -M-- -T-- ---- ---- ---- -T-- ---- ----
+BG2: --M- --T- ---- ---- ---- --T- ---- ----
+BG3: ---M ---T ---- ---- ---- ---T ---- ----
+</code></pre>
+<h3 id="8bpp-access-patterns"><a class="header" href="#8bpp-access-patterns">8BPP access patterns</a></h3>
+<pre><code>BG0: M--- T--- ---- T--- ---- T--- ---- T---
+BG1: -M-- -T-- ---- -T-- ---- -T-- ---- -T--
+BG2: --M- --T- ---- --T- ---- --T- ---- --T-
+BG3: ---M ---T ---- ---T ---- ---T ---- ---T
+</code></pre>
+<h2 id="mode-1-bg0---bg1-text-mode-bg2-affine-tilemap"><a class="header" href="#mode-1-bg0---bg1-text-mode-bg2-affine-tilemap">Mode 1 (BG0 - BG1 text mode; BG2 affine tilemap)</a></h2>
+<p>Presumably just works like Mode 0 for BG0 and BG1 and like Mode 2 for BG2.</p>
+<h2 id="mode-2-bg2---bg3-affine-tilemap"><a class="header" href="#mode-2-bg2---bg3-affine-tilemap">Mode 2 (BG2 - BG3 affine tilemap)</a></h2>
+<p>Affine tilemap backgrounds are rendered pixel-by-pixel, starting with the left-most screen pixel.</p>
+<p>Every four cycles one BG2 and one BG3 pixel is fetched. In the first cycle the respective BG3 tilemap-entry is fetched. In the second cycle the corresponding tile data is fetched.
+The third and fourth cycles repeat the same process for BG2.</p>
+<p>Even if the current tilemap pixel coordinate is out-of-bounds and wraparound is disabled in <strong>BG</strong>[x]<strong>CNT</strong>, the pixel will still be fetched (the fetched data will be discarded).</p>
+<pre><code>BG2: --MT --MT --MT --MT --MT --MT --MT --MT
+BG3: MT-- MT-- MT-- MT-- MT-- MT-- MT-- MT--
+</code></pre>
+<h2 id="mode-3---5-bg2-affine-bitmap-modes"><a class="header" href="#mode-3---5-bg2-affine-bitmap-modes">Mode 3 - 5 (BG2 affine bitmap modes)</a></h2>
+<p>The bitmap background (BG2) is rendered pixel-by-pixel, starting with the left-most screen pixel.</p>
+<p>Every four cycles a single pixel is fetched from the BG2 bitmap.
+This is the case even if the current bitmap pixel coordinate is out-of-bounds of the bitmap (the fetched data will be discarded).</p>
+<pre><code>BG2: ---B ---B ---B ---B ---B ---B ---B ---B
+</code></pre>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>240 pixels / 8 pixels per tile</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>this means that <strong>BG</strong>[x]<strong>HOFS</strong> is not divisible by eight.</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ppu/ppu.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../ppu/sprite.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ppu/ppu.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../ppu/sprite.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

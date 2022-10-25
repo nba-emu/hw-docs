@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Timers - NBA hardware documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="foreword.html"><strong aria-hidden="true">1.</strong> Foreword</a></li><li class="chapter-item expanded "><a href="timers.html" class="active"><strong aria-hidden="true">2.</strong> Timers</a></li><li class="chapter-item expanded "><a href="ppu/ppu.html"><strong aria-hidden="true">3.</strong> PPU</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ppu/background.html"><strong aria-hidden="true">3.1.</strong> Background</a></li><li class="chapter-item expanded "><a href="ppu/sprite.html"><strong aria-hidden="true">3.2.</strong> Sprite</a></li><li class="chapter-item expanded "><a href="ppu/composite.html"><strong aria-hidden="true">3.3.</strong> Composite</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">NBA hardware documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="timers"><a class="header" href="#timers">Timers</a></h1>
+<p>The Game Boy Advance has four 16-bit hardware timers (<strong>TM</strong>0 - <strong>TM</strong>3 or generally <strong>TM</strong>[x]).</p>
+<p>Each timer is made up of a 16-bit counter, a 16-bit reload value and a control register.</p>
+<h2 id="io-registers"><a class="header" href="#io-registers">IO registers</a></h2>
+<h3 id="overview"><a class="header" href="#overview">Overview</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000100</td><td>TM0D</td><td>Timer #0 counter (on read) and reload (on write) value</td></tr>
+<tr><td>0x04000102</td><td>TM0CNT</td><td>Timer #0 control register</td></tr>
+<tr><td>0x04000104</td><td>TM1D</td><td>Timer #1 counter (on read) and reload (on write) value</td></tr>
+<tr><td>0x04000106</td><td>TM1CNT</td><td>Timer #1 control register</td></tr>
+<tr><td>0x04000108</td><td>TM2D</td><td>Timer #2 counter (on read) and reload (on write) value</td></tr>
+<tr><td>0x0400010A</td><td>TM2CNT</td><td>Timer #2 control register</td></tr>
+<tr><td>0x0400010C</td><td>TM3D</td><td>Timer #3 counter (on read) and reload (on write) value</td></tr>
+<tr><td>0x0400010E</td><td>TM3CNT</td><td>Timer #3 control register</td></tr>
+</tbody></table>
+</div>
+<h3 id="tmxd"><a class="header" href="#tmxd">TM[x]D</a></h3>
+<p>Reads return the current 16-bit counter value. Writes set the 16-bit reload value.</p>
+<h3 id="tmxcnt"><a class="header" href="#tmxcnt">TM[x]CNT</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Bit(s)</th><th style="text-align: center">R/W</th><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td style="text-align: center">0 - 1</td><td style="text-align: center">RW</td><td>Clock Divider</td><td>Select a clock divider frequency (see <a href="#clock-divider">Clock Divider</a>)</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">RW</td><td>Clock Select <sup class="footnote-reference"><a href="#1">1</a></sup></td><td>0 = clock divider output, 1 = on <strong>TM</strong>[x-1] overflow</td></tr>
+<tr><td style="text-align: center">3 - 5</td><td style="text-align: center">0</td><td>Unused</td><td></td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">RW</td><td>IRQ enable</td><td>0 = IRQ disabled, 1 = IRQ enabled</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">RW</td><td>Enable</td><td>0 = disable, 1 = enabled</td></tr>
+<tr><td style="text-align: center">8 - 15</td><td style="text-align: center">0</td><td>Unused</td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="clock-divider"><a class="header" href="#clock-divider">Clock Divider</a></h4>
+<p>The 16 MiHz (16.777.216 Hz) system clock is divided into four frequencies using a single clock divider.</p>
+<p>When a timer uses the system clock (meaning <code>Clock Select</code> is zero), it runs at one of those frequencies:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Value</th><th>Frequency</th><th style="text-align: center">Divisor</th></tr></thead><tbody>
+<tr><td style="text-align: center">0</td><td>16 MiHz</td><td style="text-align: center">1</td></tr>
+<tr><td style="text-align: center">1</td><td>256 KiHz</td><td style="text-align: center">64</td></tr>
+<tr><td style="text-align: center">2</td><td>64 KiHz</td><td style="text-align: center">256</td></tr>
+<tr><td style="text-align: center">3</td><td>16 KiHz</td><td style="text-align: center">1024</td></tr>
+</tbody></table>
+</div>
+<p>The relation between frequency and divisor is: <code>Frequency = 16 MiHz / Divisor</code></p>
+<h2 id="functionality"><a class="header" href="#functionality">Functionality</a></h2>
+<p>When the enable bit (<strong>TM</strong>[x]<strong>CNT</strong>.bit7) changes from <code>0</code> to <code>1</code> the reload value is loaded into the counter.</p>
+<p>While the enable bit is set, the counter is incremented every time its input clock pulses:</p>
+<ul>
+<li>when <code>Clock Select = 0</code>: at the frequency selected via <code>Clock Divider</code>.</li>
+<li>when <code>Clock Select = 1</code>: when <strong>TM</strong>[x-1] ticks and overflows (the overflow flag of <strong>TM</strong>[x-1] is connected as input clock).</li>
+</ul>
+<p>When the 16-bit counter overflows:</p>
+<ol>
+<li>the reload value is loaded into the counter</li>
+<li>if IRQ enable (<strong>TM</strong>[x]<strong>CNT</strong>.bit6) is set: an IRQ is requested in <strong>IE</strong> bit <code>3 + x</code></li>
+</ol>
+<h2 id="timing-notes"><a class="header" href="#timing-notes">Timing notes</a></h2>
+<ol>
+<li>Changes to <strong>TM</strong>[x]<strong>D</strong> and <strong>TM</strong>[x]<strong>CNT</strong> take one cycle to apply<sup class="footnote-reference"><a href="#2">2</a></sup>.</li>
+<li>The clock divider appears to generate pulses every <code>n</code> cycles (where <code>n</code> is the divisor) relative to system startup (meaning a timer can tick in less than <code>n</code> cycles after it was enabled). This however hasn't been thoroughly researched yet.</li>
+</ol>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>for <strong>TM</strong>0 this bit always reads zero (the clock divider output is forcibly used)</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>See <a href="https://github.com/nba-emu/hw-test/tree/master/timer/reload">timer/reload</a> and <a href="https://github.com/nba-emu/hw-test/tree/master/timer/start-stop">timer/start-stop</a> </p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="foreword.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="ppu/ppu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="foreword.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="ppu/ppu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
