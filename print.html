@@ -294,10 +294,10 @@ The OAM fetch stage is stalled for all active VRAM fetch stage cycles except for
 That is enough to prefetch OAM attributes #0 and #1 for the next OAM entry and either attribute #2 for the next OAM entry or attributes #0 and #1 for the OAM entry after.</p>
 <h2 id="vram-fetch-stage"><a class="header" href="#vram-fetch-stage">VRAM fetch stage</a></h2>
 <p>The VRAM fetch stage fetches tile data for every sprite pixel in the rendered scanline.</p>
-<p>For regular sprites <code>width</code> 16-bit VRAM accesses are performed (one access every two cycles).
+<p>For regular sprites <code>width / 2</code> 16-bit VRAM accesses are performed (one access every two cycles).
 With each access two pixels are rendered (even for 4BPP tile data).</p>
 <p>For affine sprites this stage does not perform a VRAM access during the first two render cycles.
-It then performs <code>2 * width</code> VRAM accesses (one access every two cycles).
+It then performs <code>width</code> VRAM accesses (one access every two cycles).
 With each access a single pixel is rendered.
 Notice that using the 'double area' feature doubles the number of VRAM accesses.</p>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
