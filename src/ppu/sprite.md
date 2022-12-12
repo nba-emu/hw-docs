@@ -4,8 +4,8 @@ The PPU renders sprites during all visible scanlines (0 to 159) and also during 
 Sprites are rendered one scanline ahead.
 This means sprite rendering for line 0 starts during line 227 and rendering for line 1 in line 0 and so on.
 
-Sprite rendering for the current scanline starts at cycle #42 of the previous scanline and continues either until the horizontal blanking period of that previous scanline (if **DISPCNT**.bit5 = 1)
-or until cycle #42 of the current scanline (if **DISPCNT**.bit5 = 0).
+Sprite rendering for the current scanline starts at cycle #40 of the previous scanline and continues either until the horizontal blanking period of that previous scanline (if **DISPCNT**.bit5 = 1)
+or until cycle #40 of the current scanline (if **DISPCNT**.bit5 = 0).
 
 The sprites are rendered in order from the lowest OAM entry (OAM #0) to the highest entry (OAM #127).
 The rendering is done with two pipeline stages: an OAM attribute/matrix fetch stage and a VRAM pixel fetch stage.

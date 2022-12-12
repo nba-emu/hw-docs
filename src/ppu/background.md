@@ -2,9 +2,9 @@
 
 The PPU renders background pixels during all visible scanlines (0 to 159). In each scanline it renders all pixels for the current scanline, meaning that unlike sprite rendering all background rendering happens in the same scanline.
 
-For every background (BG0 - BG3) there is a wait/idle period for a number of clock cycles before the PPU begins rendering that background according to the VRAM access patterns laid out below. Usually the length of the wait period is 33 clock cycles, however it may be shorter for text-mode backgrounds which use horizontal scrolling, as described in more detail in the [Mode 0](#mode-0-bg0-3-text-mode) section.
+For every background (BG0 - BG3) there is a wait/idle period for a number of clock cycles before the PPU begins rendering that background according to the VRAM access patterns laid out below. Usually the length of the wait period is 31 clock cycles, however it may be shorter for text-mode backgrounds which use horizontal scrolling, as described in more detail in the [Mode 0](#mode-0-bg0-3-text-mode) section.
 
-Once the wait period for a given background has passed, the PPU renders pixels until it enters the horizontal blanking period (h-blank) (cycle #1007 appears to be the last cycle that may fetch data).
+Once the wait period for a given background has passed, the PPU renders pixels until it enters the horizontal blanking period (h-blank) (cycle #1005 appears to be the last cycle that may fetch data).
 If all visible 240 pixels have been rendered, before the PPU reaches the h-blank period, it does not stop rendering pixels early. It renders more pixels (which are discarded) until the h-blank  period.
 
 The hardware fetches **on average** one background pixel (for every enabled background) every four cycles. For affine tilemap and bitmap modes this is the true rate at which pixels are fetched, however for text-mode backgrounds the access pattern is slightly more complicated.
@@ -22,7 +22,7 @@ B = fetch bitmap (8-bit palette index or 16-bit color)
 
 Text-mode backgrounds are rendered tile-by-tile. Within 32 cycles a single tilemap-entry is rendered for each enabled background, starting with the left-most visible tilemap-entry. Normally 30[^1] tilemap-entries are rendered per scanline. However when sub-tile[^2] horizontal scrolling is used then an additional tilemap-entry needs to be rendered. Notice that while in this case the first and last tile are partially off-screen, hardware still fetches the full data for all eight pixels. The off-screen pixels simply are discarded.
 
-Normally rendering for text-mode backgrounds starts at 33 cycles into the scanline. When a background has sub-tile scrolling[^2], then its start time is shifted closer to the start of the scanline by four cycles per sub-tile scrolled pixel. That is to say, the start time can be calculated from the **BG**[x]**HOFS** register: `33 - 4 * (BG[x]HOFS mod 8)`. This is presumably done to ensure that the *actually* visible pixels are always available in time to be consumed by the composite step.
+Normally rendering for text-mode backgrounds starts at 31 cycles into the scanline. When a background has sub-tile scrolling[^2], then its start time is shifted closer to the start of the scanline by four cycles per sub-tile scrolled pixel. That is to say, the start time can be calculated from the **BG**[x]**HOFS** register: `31 - 4 * (BG[x]HOFS mod 8)`. This is presumably done to ensure that the *actually* visible pixels are always available in time to be consumed by the composite step.
 
 To render a tilemap-entry the relevant 16-bit descriptor is first fetched from the tilemap. The hardware then performs another two (4BPP) or four (8BPP) 16-bit VRAM fetches to read a full eight pixel line from the tile data.
 
