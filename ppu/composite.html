@@ -143,8 +143,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="layer-compositing"><a class="header" href="#layer-compositing">Layer compositing</a></h1>
-<p>Compositing of the background, sprite and backdrop layers begins after a wait period of 48 cycles.
-The PPU then composites an output pixel every four cycles. The last pixel will be completed on cycle #1008 (<code>48 + 4 * 240 = 1008</code>).
+<p>Compositing of the background, sprite and backdrop layers begins after a wait period of 46 cycles.
+The PPU then composites an output pixel every four cycles. The last pixel will be completed on cycle #1006 (<code>46 + 4 * 240 = 1008</code>).
 It does this during all visible scanlines (0 to 159) and always composites pixels for the current scanline.</p>
 <p>For each output pixel the top two opaque layers for that pixel are extracted. Then up to two Palette RAM (PRAM) accesses are performed, to resolve palette indices from the background or sprite layers to 16-bit colors or to get the backdrop colour. The first PRAM access  resolves the colour for the top-most layer and the second PRAM access the colour for the second top-most layer.</p>
 <p>For both layers, there are distinctive conditions that decide whether the respective PRAM access will be performed or not.</p>

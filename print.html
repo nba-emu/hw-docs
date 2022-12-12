@@ -228,8 +228,8 @@ sprites and to composite the final output image.</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="background-rendering"><a class="header" href="#background-rendering">Background rendering</a></h1>
 <p>The PPU renders background pixels during all visible scanlines (0 to 159). In each scanline it renders all pixels for the current scanline, meaning that unlike sprite rendering all background rendering happens in the same scanline.</p>
-<p>For every background (BG0 - BG3) there is a wait/idle period for a number of clock cycles before the PPU begins rendering that background according to the VRAM access patterns laid out below. Usually the length of the wait period is 33 clock cycles, however it may be shorter for text-mode backgrounds which use horizontal scrolling, as described in more detail in the <a href="ppu/background.html#mode-0-bg0-3-text-mode">Mode 0</a> section.</p>
-<p>Once the wait period for a given background has passed, the PPU renders pixels until it enters the horizontal blanking period (h-blank) (cycle #1007 appears to be the last cycle that may fetch data).
+<p>For every background (BG0 - BG3) there is a wait/idle period for a number of clock cycles before the PPU begins rendering that background according to the VRAM access patterns laid out below. Usually the length of the wait period is 31 clock cycles, however it may be shorter for text-mode backgrounds which use horizontal scrolling, as described in more detail in the <a href="ppu/background.html#mode-0-bg0-3-text-mode">Mode 0</a> section.</p>
+<p>Once the wait period for a given background has passed, the PPU renders pixels until it enters the horizontal blanking period (h-blank) (cycle #1005 appears to be the last cycle that may fetch data).
 If all visible 240 pixels have been rendered, before the PPU reaches the h-blank period, it does not stop rendering pixels early. It renders more pixels (which are discarded) until the h-blank  period.</p>
 <p>The hardware fetches <strong>on average</strong> one background pixel (for every enabled background) every four cycles. For affine tilemap and bitmap modes this is the true rate at which pixels are fetched, however for text-mode backgrounds the access pattern is slightly more complicated.</p>
 <h2 id="legend"><a class="header" href="#legend">Legend</a></h2>
@@ -240,7 +240,7 @@ B = fetch bitmap (8-bit palette index or 16-bit color)
 </code></pre>
 <h2 id="mode-0-bg0---bg3-text-mode"><a class="header" href="#mode-0-bg0---bg3-text-mode">Mode 0 (BG0 - BG3 text mode)</a></h2>
 <p>Text-mode backgrounds are rendered tile-by-tile. Within 32 cycles a single tilemap-entry is rendered for each enabled background, starting with the left-most visible tilemap-entry. Normally 30<sup class="footnote-reference"><a href="#1">1</a></sup> tilemap-entries are rendered per scanline. However when sub-tile<sup class="footnote-reference"><a href="#2">2</a></sup> horizontal scrolling is used then an additional tilemap-entry needs to be rendered. Notice that while in this case the first and last tile are partially off-screen, hardware still fetches the full data for all eight pixels. The off-screen pixels simply are discarded.</p>
-<p>Normally rendering for text-mode backgrounds starts at 33 cycles into the scanline. When a background has sub-tile scrolling<sup class="footnote-reference"><a href="#2">2</a></sup>, then its start time is shifted closer to the start of the scanline by four cycles per sub-tile scrolled pixel. That is to say, the start time can be calculated from the <strong>BG</strong>[x]<strong>HOFS</strong> register: <code>33 - 4 * (BG[x]HOFS mod 8)</code>. This is presumably done to ensure that the <em>actually</em> visible pixels are always available in time to be consumed by the composite step.</p>
+<p>Normally rendering for text-mode backgrounds starts at 31 cycles into the scanline. When a background has sub-tile scrolling<sup class="footnote-reference"><a href="#2">2</a></sup>, then its start time is shifted closer to the start of the scanline by four cycles per sub-tile scrolled pixel. That is to say, the start time can be calculated from the <strong>BG</strong>[x]<strong>HOFS</strong> register: <code>31 - 4 * (BG[x]HOFS mod 8)</code>. This is presumably done to ensure that the <em>actually</em> visible pixels are always available in time to be consumed by the composite step.</p>
 <p>To render a tilemap-entry the relevant 16-bit descriptor is first fetched from the tilemap. The hardware then performs another two (4BPP) or four (8BPP) 16-bit VRAM fetches to read a full eight pixel line from the tile data.</p>
 <h3 id="4bpp-access-patterns"><a class="header" href="#4bpp-access-patterns">4BPP access patterns</a></h3>
 <pre><code>BG0: M--- T--- ---- ---- ---- T--- ---- ----
@@ -280,8 +280,8 @@ This is the case even if the current bitmap pixel coordinate is out-of-bounds of
 <p>The PPU renders sprites during all visible scanlines (0 to 159) and also during the last scanline (227) of the vertical blanking period.
 Sprites are rendered one scanline ahead.
 This means sprite rendering for line 0 starts during line 227 and rendering for line 1 in line 0 and so on.</p>
-<p>Sprite rendering for the current scanline starts at cycle #42 of the previous scanline and continues either until the horizontal blanking period of that previous scanline (if <strong>DISPCNT</strong>.bit5 = 1)
-or until cycle #42 of the current scanline (if <strong>DISPCNT</strong>.bit5 = 0).</p>
+<p>Sprite rendering for the current scanline starts at cycle #40 of the previous scanline and continues either until the horizontal blanking period of that previous scanline (if <strong>DISPCNT</strong>.bit5 = 1)
+or until cycle #40 of the current scanline (if <strong>DISPCNT</strong>.bit5 = 0).</p>
 <p>The sprites are rendered in order from the lowest OAM entry (OAM #0) to the highest entry (OAM #127).
 The rendering is done with two pipeline stages: an OAM attribute/matrix fetch stage and a VRAM pixel fetch stage.
 Both stages only access OAM/VRAM every two cycles, every odd cycle does not access any memory.</p>
@@ -395,8 +395,8 @@ V = fetch VRAM tile data
 <p>the order in which the matrix components are fetched is not known yet.</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="layer-compositing"><a class="header" href="#layer-compositing">Layer compositing</a></h1>
-<p>Compositing of the background, sprite and backdrop layers begins after a wait period of 48 cycles.
-The PPU then composites an output pixel every four cycles. The last pixel will be completed on cycle #1008 (<code>48 + 4 * 240 = 1008</code>).
+<p>Compositing of the background, sprite and backdrop layers begins after a wait period of 46 cycles.
+The PPU then composites an output pixel every four cycles. The last pixel will be completed on cycle #1006 (<code>46 + 4 * 240 = 1008</code>).
 It does this during all visible scanlines (0 to 159) and always composites pixels for the current scanline.</p>
 <p>For each output pixel the top two opaque layers for that pixel are extracted. Then up to two Palette RAM (PRAM) accesses are performed, to resolve palette indices from the background or sprite layers to 16-bit colors or to get the backdrop colour. The first PRAM access  resolves the colour for the top-most layer and the second PRAM access the colour for the second top-most layer.</p>
 <p>For both layers, there are distinctive conditions that decide whether the respective PRAM access will be performed or not.</p>
